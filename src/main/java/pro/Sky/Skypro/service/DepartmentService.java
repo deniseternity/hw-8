@@ -1,5 +1,6 @@
 package pro.Sky.Skypro.service;
 
+import pro.Sky.Skypro.Exceptions.EmployeeNotFoundException;
 import pro.Sky.Skypro.model.Employee;
 
 import java.util.Collection;
@@ -19,14 +20,14 @@ public class DepartmentService {
         return employeeService.getAll().stream()
                 .filter(e -> e.getDepartment() == department)
                 .max(Comparator.comparingInt(Employee::getSalary))
-                .orElse(null);
+                .orElseThrow(EmployeeNotFoundException::new);
     }
 
     public Employee findminSalary(int department) {
         return employeeService.getAll().stream()
                 .filter(e -> e.getDepartment() == department)
                 .min(Comparator.comparingInt(Employee::getSalary))
-                .orElse(null);
+                .orElseThrow(EmployeeNotFoundException::new);
     }
 
     public Collection<Employee> findByDepartment(int department) {
